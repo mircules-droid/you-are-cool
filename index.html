@@ -130,7 +130,18 @@ let couple = document.getElementById("couple");
 let yesSize = 18;
 
 // NO teleports away
-noBtn.addEventListener("mouseover", function() {
+noBtn.addEventListener("click", function() {
+    let iframe = document.getElementById("ytplayer");
+
+// YouTube video for NO sound
+let noVideoID = "iEnOZsuJrLQ";
+let noStart = 5; // 
+
+iframe.src = "https://www.youtube.com/embed/"
+    + noVideoID
+    + "?start=" + noStart
+    + "&autoplay=1";
+
     let x = Math.random() * (window.innerWidth - 100);
     let y = Math.random() * (window.innerHeight - 100);
     noBtn.style.left = x + "px";
