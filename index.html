@@ -142,16 +142,14 @@ let yesSize = 18;
 
 // NO teleports away
 noBtn.addEventListener("mouseenter", function() {
-    
-    // 🎵 Play NO sound video
+     // 🎵 Play NO sound video
 let noVideoID = "A5Awu2svay8";
 let noStart = 1; 
-
 let iframe = document.getElementById("ytplayer");
 iframe.src = "https://www.youtube.com/embed/"
-    + noVideoID
-    + "?start=" + noStart
-    + "&autoplay=1&controls=0";
+    + VideoID
+    + "?start=" + dropStart
+    + "&autoplay=1";
 
     let x = Math.random() * (window.innerWidth - 100);
     let y = Math.random() * (window.innerHeight - 100);
