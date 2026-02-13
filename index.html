@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Nodiyeh ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    text-align: center;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    color: white;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 10px;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+#yesBtn {
+    background-color: #ff2e63;
+    color: white;
+}
+
+#noBtn {
+    background-color: white;
+    color: #ff2e63;
+    position: absolute;
+}
+
+#questionContainer {
+    display: none;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<h1 id="countdown">3</h1>
+
+<div id="questionContainer">
+    <h1>Nodiyeh… will you be my Valendine? ❤️</h1>
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 🙄</button>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+
+let countdownEl = document.getElementById("countdown");
+let questionContainer = document.getElementById("questionContainer");
+let yesBtn = document.getElementById("yesBtn");
+let noBtn = document.getElementById("noBtn");
+
+let countdown = 3;
+let yesSize = 18;
+let noSize = 18;
+
+let messages = [
+    "Are you sure? 🤨",
+    "Think again Nodiyeh 😌",
+    "Wrong answer detected 🚨",
+    "That button seems broken 👀",
+    "Try the other one 😏"
+];
+
+let msgIndex = 0;
+
+// Countdown
+let timer = setInterval(() => {
+    countdown--;
+    if (countdown === 0) {
+        clearInterval(timer);
+        countdownEl.style.display = "none";
+        questionContainer.style.display = "block";
+    } else {
+        countdownEl.innerText = countdown;
+    }
+}, 1000);
+
+// No button behaviour
+noBtn.addEventListener("click", function() {
+
+    yesSize += 14;
+    noSize -= 2;
+
+    yesBtn.style.fontSize = yesSize + "px";
+    yesBtn.style.padding = (yesSize/1.3) + "px";
+
+    if (noSize > 8) {
+        noBtn.style.fontSize = noSize + "px";
+    }
+
+    alert(messages[msgIndex % messages.length]);
+    msgIndex++;
+
+    let x = Math.random() * (window.innerWidth - 150);
+    let y = Math.random() * (window.innerHeight - 150);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// Yes button behaviour
+yesBtn.addEventListener("click", function() {
+
+    startConfetti();
+
+    document.body.innerHTML = `
+        <h1 style="color:white; font-size:50px;">SHE SAID YES 🥰❤️</h1>
+        <p style="color:white; font-size:26px; margin-top:20px;">
+            Nodiyeh is officially my Valendine 💌
+        </p>
+        <p style="color:white; font-size:30px; margin-top:25px; font-weight:bold;">
+            You are my jendeh 😌🔥
+        </p>
+        <p style="color:white; font-size:18px; margin-top:20px;">
+            This is going to be special.
+        </p>
+    `;
+});
+
+
+// Confetti animation
+let canvas = document.getElementById("confetti");
+let ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let pieces = [];
+
+function startConfetti() {
+    for (let i = 0; i < 150; i++) {
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 8 + 4,
+            speedY: Math.random() * 3 + 2
+        });
+    }
+    requestAnimationFrame(updateConfetti);
+}
+
+function updateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    pieces.forEach(p => {
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        p.y += p.speedY;
+    });
+    requestAnimationFrame(updateConfetti);
+}
+
+</script>
+
+</body>
+</html>
