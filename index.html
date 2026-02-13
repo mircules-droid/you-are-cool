@@ -126,6 +126,17 @@ let noBtn = document.getElementById("noBtn");
 let question = document.getElementById("question");
 let scene = document.getElementById("scene");
 let couple = document.getElementById("couple");
+    
+// 🔓 Unlock audio on first click
+document.addEventListener("click", function() {
+    let noAudio = document.getElementById("noSound");
+    if (noAudio) {
+        noAudio.play().then(() => {
+            noAudio.pause();
+            noAudio.currentTime = 0;
+        }).catch(() => {});
+    }
+}, { once: true });
 
 let yesSize = 18;
 
